@@ -1,4 +1,4 @@
-package contacts.utils
+package contacts.collection.mutable
 
 import scala.collection.JavaConverters._
 

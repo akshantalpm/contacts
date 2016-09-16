@@ -1,7 +1,7 @@
 package contacts.services
 
+import contacts.collection.mutable.Trie
 import contacts.io.InputReader
-import contacts.utils.Trie
 import org.specs2.mock.Mockito
 import org.specs2.mutable.Specification
 

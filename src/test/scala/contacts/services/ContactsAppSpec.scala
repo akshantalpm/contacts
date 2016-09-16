@@ -1,7 +1,8 @@
 package contacts.services
 
+import contacts.collection.mutable.Trie
 import contacts.io.{InputReader, OutputWriter}
-import contacts.utils.{Constants, Trie}
+import contacts.utils.Constants
 import org.mockito._
 import org.specs2.mock.Mockito
 import org.specs2.mutable.Specification

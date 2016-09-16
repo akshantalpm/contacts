@@ -1,9 +1,10 @@
 package contacts
 package services
 
+import contacts.collection.mutable.Trie
 import contacts.io.InputReader
 import contacts.models.Contact
-import contacts.utils.{Constants, Trie}
+import contacts.utils.Constants
 
 class ContactsService(inputReader: InputReader) {
 
