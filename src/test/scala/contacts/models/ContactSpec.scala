@@ -25,5 +25,15 @@ class ContactSpec extends Specification {
       val contactName = "bdhbfjewlfrekrewkrjlj ewrlkerlkwejrlrjlewkjrklelwjrlklkw"
       Contact.create(contactName) should throwA(new RuntimeException(Constants.ContactLengthLimitExceeded))
     }
+
+    "return full name" in {
+      "with firstname and lastname" in {
+        Contact.create("Chris Harris").full_name mustEqual "Chris Harris"
+      }
+
+      "with firstname if lastname is missing" in {
+        Contact.create("Chris").full_name mustEqual "Chris"
+      }
+    }
   }
 }
