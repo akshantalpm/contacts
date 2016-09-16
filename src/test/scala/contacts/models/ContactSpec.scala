@@ -25,21 +25,5 @@ class ContactSpec extends Specification {
       val contactName = "bdhbfjewlfrekrewkrjlj ewrlkerlkwejrlrjlewkjrklelwjrlklkw"
       Contact.create(contactName) should throwA(new RuntimeException(Constants.ContactLengthLimitExceeded))
     }
-
-    "return contact if search criteria is satisfied in first name" in {
-      Contact("Chris", None).isMatch("chris") must beTrue
-    }
-
-    "return contact if search criteria is satisfied in last name" in {
-      Contact("Chris", Some("Harris")).isMatch("harris") must beTrue
-    }
-
-    "not return contact if search criteria is not satisfied in first name" in {
-      Contact("Chris", None).isMatch("harris") must beFalse
-    }
-
-    "not return contact if search criteria is not satisfied" in {
-      Contact("Chris", Some("Harris")).isMatch("random") must beFalse
-    }
   }
 }

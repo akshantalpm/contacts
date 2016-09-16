@@ -1,18 +1,23 @@
 package contacts.services
 
 import contacts.io.InputReader
-import contacts.models.{Contact, Contacts}
+import contacts.utils.Trie
 import org.specs2.mock.Mockito
 import org.specs2.mutable.Specification
 
-class ContactServiceSpec extends Specification with Mockito {
+class ContactsServiceSpec extends Specification with Mockito {
   "ContactService" should {
     "create contact" in {
       val inputReader = smartMock[InputReader]
       val contactService = new ContactsService(inputReader)
       inputReader.readLine("Enter name:") returns "Chris Harris"
 
-      contactService.addContactsTo(Contacts.empty) mustEqual Contacts(Seq(Contact("Chris", Some("Harris"))))
+      contactService.createContact
+
+      val expectedTrie: Trie = Trie.root
+      expectedTrie.append("Chris Harris")
+
+      contactService.contacts mustEqual expectedTrie
     }
 
     "not throw exception if create contact fails" in {
@@ -20,19 +25,20 @@ class ContactServiceSpec extends Specification with Mockito {
       val contactService = new ContactsService(inputReader)
       inputReader.readLine("Enter name:") returns "Chris B Harris"
 
-      contactService.addContactsTo(Contacts.empty) mustEqual Contacts.empty
+      contactService.createContact
+
+      contactService.contacts mustEqual Trie.root
     }
 
     "search contact for given name" in {
-      val contact1 = Contact("Chris", Some("Blah"))
-      val contact2 = Contact("Blah", Some("Harris"))
-      val contacts = Contacts(Seq(contact1, contact2))
-
       val inputReader = smartMock[InputReader]
       val contactService = new ContactsService(inputReader)
-      inputReader.readLine("Enter name:") returns "Chris"
+      inputReader.readLine("Enter name:") returns ("Chris Blah", "Blah Harris", "Chris")
 
-      contactService.searchContacts(contacts) mustEqual Contacts(Seq(contact1))
+      contactService.createContact
+      contactService.createContact
+
+      contactService.searchContacts.toList mustEqual Seq("Chris Blah")
     }
   }
 }

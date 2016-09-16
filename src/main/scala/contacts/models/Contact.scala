@@ -3,9 +3,10 @@ package contacts.models
 import contacts.utils.{AppConfig, Constants}
 
 case class Contact(firstName: String, lastName: Option[String]) {
-  def printableString = s"$firstName ${lastName.getOrElse("")}"
-
-  def isMatch(criteria: String) = firstName.toLowerCase.contains(criteria) || (lastName.isDefined && lastName.get.toLowerCase.contains(criteria))
+  def full_name = lastName match {
+    case Some(lastName) => s"$firstName $lastName"
+    case None => firstName
+  }
 }
 
 object Contact {
